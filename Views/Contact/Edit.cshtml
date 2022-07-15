@@ -1,0 +1,60 @@
+﻿@model Contact
+
+@{
+    ViewBag.Title = $"{ViewBag.Action} Contact";
+}
+
+<h2>@ViewBag.Action Contact</h2>
+
+<div asp-validation-summary="All" class="text-danger"></div>
+
+<form asp-action="Edit" method="post">
+
+    <input type="hidden" asp-for="ContactId" />
+
+    <div class="form-group">
+        <label asp-for="Firstname">First name</label>
+        <input asp-for="Firstname" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Lastname">Last name</label>
+        <input asp-for="Lastname" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Phone">Phone</label>
+        <input asp-for="Phone" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Email">Email</label>
+        <input asp-for="Email" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="CategoryId">Category</label>
+        <select asp-for="CategoryId" class="form-control">
+            <option value="0">select a category</option>
+            @foreach (Category c in ViewBag.Categories)
+            {
+                <option value="@c.CategoryId">@c.Name</option>
+            }
+        </select>
+    </div>
+    <div class="form-group">
+        <label asp-for="Organization">Organization</label>
+        <input asp-for="Organization" class="form-control" />
+    </div>
+
+    <button type="submit" class="btn btn-dark">@ViewBag.Action</button>
+
+    @if (ViewBag.Action == "Edit")
+    {
+        <a asp-action="Details" asp-controller="Contact"
+           asp-route-id="@Model.ContactId" asp-route-slug="@Model.Slug"
+           class="btn btn-dark">Cancel</a>
+    }
+    else
+    {
+        <a asp-action="Index" asp-controller="Home"
+           class="btn btn-dark">Cancel</a>
+    }
+
+</form>
